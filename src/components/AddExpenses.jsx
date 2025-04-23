@@ -1,5 +1,4 @@
 const AddExpenses = ({ onAddItem }) => {
-    // Function to handle form submission
     const handleSubmit = (event) => {
         event.preventDefault();
         
@@ -15,12 +14,14 @@ const AddExpenses = ({ onAddItem }) => {
         const description = event.target[0].value;
         const amount = event.target[1].value;
         
-        // Call the parent's function to add the new item
         onAddItem(description, amount);
         
-        // Clear the form
         event.target[0].value = "";
         event.target[1].value = "";
+    };
+
+    const addMinus = (input) => {
+        input.value = input.value.startsWith('-') ? input.value.slice(1) : '-' + input.value;
     };
 
     return (
@@ -30,7 +31,10 @@ const AddExpenses = ({ onAddItem }) => {
                 <h3>Description:</h3>
                 <input type="text" placeholder="Add Description" className="expenses-input" />
                 <h3>Amount:</h3>
-                <input type="number" placeholder="Amount" className="expenses-input" /><br />
+                <div className="amount-input-container">
+                    <input type="number" placeholder="Amount" className="expenses-input" />
+                    <button type="button" className="minus-btn" onClick={(e) => addMinus(e.target.previousElementSibling)}>-</button>
+                </div>
                 <button type="submit" className="submit-btn">Add</button>
             </form>
         </div>
